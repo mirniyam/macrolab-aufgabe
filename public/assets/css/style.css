@@ -125,6 +125,74 @@ body{
 }
 
 
+.menu a.active{
+    background:#fff;
+    color:#555;
+}
+
+
+/* FORM */
+
+.form-part{
+    border:1px solid #999;
+    padding:8px;
+    margin-bottom:16px;
+    font-size:12px;
+}
+
+.form-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    align-items:flex-start;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+/* Keeps day and month inputs next to each other */
+.date-group{
+    display:flex;
+    column-gap:5px;
+}
+
+.date-input{
+    width:44px;
+    height:19px;
+    border:1px solid #aaa;
+    padding-left:2px;
+}
+
+.title-input{
+    width:145px;
+    height:19px;
+    border:1px solid #aaa;
+}
+
+.select-input{
+    width:115px;
+    height:20px;
+    border:1px solid #aaa;
+    font-size:11px;
+}
+
+.save{
+    text-align:right;
+    margin-top:15px;
+}
+
+.save button{
+    padding:4px 12px;
+    cursor:pointer;
+}
 
 
 
