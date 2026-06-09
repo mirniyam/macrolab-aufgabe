@@ -6,6 +6,7 @@ class ReminderController
 {
     public function index()
     {
+        $reminders = Reminder::all();
         require_once __DIR__ . '/../Views/reminder.php';
     }
 

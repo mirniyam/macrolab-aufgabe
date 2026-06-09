@@ -196,6 +196,50 @@ body{
 
 
 
+/* TABLE */
+
+.table-box{
+    border:1px solid #999;
+    padding:8px;
+    font-size:12px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    text-align:left;
+    padding-bottom:10px;
+    font-weight:bold;
+}
+
+td{
+    padding:5px 0;
+}
+
+td a{
+    color:#666;
+    text-decoration:none;
+}
+
+.link-button{
+    border:none;
+    background:none;
+    color:#666;
+    text-decoration:none;
+    cursor:pointer;
+    font:inherit;
+    padding:0;
+}
+
+.delete-form{
+    display:inline;
+}
+
+
+
 
 /* FOOTER */
 

@@ -100,3 +100,93 @@
 
 </form>
 
+
+
+
+
+
+
+
+
+<!-- Reminder overview table. -->
+<!-- Reminder overview table. -->
+<section class="table-box">
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Bezeichnung</th>
+            <th>Erinnerung</th>
+            <th>Aktion</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <?php foreach ($reminders as $reminder): ?>
+
+            <tr>
+
+                <td>
+                    <?= date('d.m.', strtotime($reminder['event_date'])) ?>
+                </td>
+
+                <td>
+                    <?= htmlspecialchars($reminder['title']) ?>
+                </td>
+
+                <td>
+                    <?php
+                    switch ((int) $reminder['reminder_days']) {
+                        case 14:
+                            echo '2 Wochen';
+                            break;
+
+                        case 7:
+                            echo '1 Woche';
+                            break;
+
+                        case 4:
+                            echo '4 Tage';
+                            break;
+
+                        case 2:
+                            echo '2 Tage';
+                            break;
+
+                        case 1:
+                            echo '1 Tag';
+                            break;
+
+                        default:
+                            echo htmlspecialchars($reminder['reminder_days']) . ' Tage';
+                    }
+                    ?>
+                </td>
+
+                <td>
+                    <a
+                            class="edit-reminder"
+                    >
+                        bearbeiten
+                    </a>
+
+                    |
+
+
+                        <button type="submit" class="link-button">
+                            löschen
+                        </button>
+                </td>
+
+            </tr>
+
+        <?php endforeach; ?>
+
+        </tbody>
+
+    </table>
+
+</section>
