@@ -228,4 +228,3 @@ The project includes:
 
 The project was built without a PHP framework.
 
-The main focus was to keep the structure understandable and to implement the requested functionality with plain PHP, MySQL, PDO and a small MVC-like structure.
