@@ -30,9 +30,9 @@ class Reminder
         $pdo = Database::connect();
 
         $stmt = $pdo->prepare("
-            INSERT INTO reminders (event_date, title, email, reminder_days)
-            VALUES (:event_date, :title, :email, :reminder_days)
-        ");
+        INSERT INTO reminders (event_date, title, email, reminder_days, sent)
+        VALUES (:event_date, :title, :email, :reminder_days, 0)
+    ");
 
         return $stmt->execute([
             'event_date' => $data['event_date'],
@@ -47,13 +47,14 @@ class Reminder
         $pdo = Database::connect();
 
         $stmt = $pdo->prepare("
-            UPDATE reminders
-            SET event_date = :event_date,
-                title = :title,
-                email = :email,
-                reminder_days = :reminder_days
-            WHERE id = :id
-        ");
+        UPDATE reminders
+        SET event_date = :event_date,
+            title = :title,
+            email = :email,
+            reminder_days = :reminder_days,
+            sent = 0
+        WHERE id = :id
+    ");
 
         return $stmt->execute([
             'id' => $id,
@@ -69,6 +70,37 @@ class Reminder
         $pdo = Database::connect();
 
         $stmt = $pdo->prepare("DELETE FROM reminders WHERE id = :id");
+
+        return $stmt->execute([
+            'id' => $id
+        ]);
+    }
+
+    //Find all the reminders that need to be emailed today.
+    public static function remindersToSend()
+    {
+        $pdo = Database::connect();
+
+        $stmt = $pdo->query("
+    SELECT *
+    FROM reminders
+    WHERE DATE_SUB(event_date, INTERVAL reminder_days DAY) = CURDATE()
+    AND sent = 0
+    ORDER BY event_date ASC
+");
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function markAsSent($id)
+    {
+        $pdo = Database::connect();
+
+        $stmt = $pdo->prepare("
+    UPDATE reminders
+    SET sent = 1
+    WHERE id = :id
+");
 
         return $stmt->execute([
             'id' => $id

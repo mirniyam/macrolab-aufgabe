@@ -1,37 +1,49 @@
-
+<!-- Reminder form: creates a new reminder or updates an existing one. -->
 <form method="POST" action="index.php?page=reminder&action=<?= $editReminder ? 'update' : 'store' ?>">
-<?php if ($editReminder): ?>
-    <input type="hidden" name="id" value="<?= $editReminder['id'] ?>">
-<?php endif; ?>
 
-    <section >
+
+
+    <input
+            type="hidden"
+            name="csrf_token"
+            value="<?= htmlspecialchars($csrfToken) ?>"
+    >
+
+    <input
+            type="hidden"
+            name="id"
+            value="<?= $editReminder ? $editReminder['id'] : '' ?>"
+    >
+
+    <section class="form-part">
 
         <div class="form-row">
 
             <div class="form-group">
                 <label>Datum (TT/MM)</label>
 
-                <div >
+                <!-- Day and month are entered separately to match the design proposal. -->
+                <div class="date-group">
                     <input
-                        class="date-input"
-                        type="number"
-                        name="day"
-                        min="1"
-                        max="31"
-                        placeholder="TT"
-                        required
-                        value="<?= $editReminder ? date('d', strtotime($editReminder['event_date'])) : '' ?>"
+                            class="date-input"
+                            type="number"
+                            name="day"
+                            min="1"
+                            max="31"
+                            placeholder="TT"
+                            required
+                            value="<?= $editReminder ? date('d', strtotime($editReminder['event_date'])) : '' ?>"
                     >
 
                     <input
-                        class="date-input"
-                        type="number"
-                        name="month"
-                        min="1"
-                        max="12"
-                        placeholder="MM"
-                        required
-                        value="<?= $editReminder ? date('m', strtotime($editReminder['event_date'])) : '' ?>"
+                            class="date-input"
+                            type="number"
+                            name="month"
+                            min="1"
+                            max="12"
+                            placeholder="MM"
+                            required
+                            value="<?= $editReminder ? date('m', strtotime($editReminder['event_date'])) : '' ?>"
                     >
                 </div>
             </div>
@@ -40,12 +52,12 @@
                 <label>Bezeichnung</label>
 
                 <input
-                    class="title-input"
-                    type="text"
-                    name="title"
-                    maxlength="255"
-                    required
-                    value="<?= $editReminder ? htmlspecialchars($editReminder['title']) : '' ?>"
+                        class="title-input"
+                        type="text"
+                        name="title"
+                        maxlength="255"
+                        required
+                        value="<?= $editReminder ? htmlspecialchars($editReminder['title']) : '' ?>"
                 >
             </div>
 
@@ -53,19 +65,19 @@
                 <label>E-Mail</label>
 
                 <input
-                    class="title-input"
-                    type="email"
-                    name="email"
-                    maxlength="255"
-                    required
-                    value="<?= $editReminder ? htmlspecialchars($editReminder['email']) : '' ?>"
+                        class="title-input"
+                        type="email"
+                        name="email"
+                        maxlength="255"
+                        required
+                        value="<?= $editReminder ? htmlspecialchars($editReminder['email']) : '' ?>"
                 >
             </div>
 
             <div class="form-group">
                 <label>Erinnerung</label>
 
-
+                <!-- Reminder interval in days. Allowed values match the task description. -->
                 <select
                         class="select-input"
                         name="reminder_days"
@@ -92,7 +104,6 @@
                     <option value="14" <?= $editReminder && $editReminder['reminder_days'] == 14 ? 'selected' : '' ?>>
                         2 Wochen
                     </option>
-
                 </select>
             </div>
 
@@ -100,21 +111,13 @@
 
         <div class="save">
             <button type="submit">
-                SPEICHERN
+                <?= $editReminder ? 'AKTUALISIEREN' : 'SPEICHERN' ?>
             </button>
         </div>
 
     </section>
 
 </form>
-
-
-
-
-
-
-
-
 
 <!-- Reminder overview table. -->
 <section class="table-box">
@@ -174,17 +177,24 @@
                 </td>
 
                 <td>
-                    <a class="edit-reminder"
+                    <a
+                            class="edit-reminder"
                             href="index.php?page=reminder&edit=<?= $reminder['id'] ?>"
-
+                            data-id="<?= $reminder['id'] ?>"
                     >
                         bearbeiten
                     </a>
 
                     |
 
+                    <!-- The href provides a fallback if JavaScript is disabled. AJAX uses the same ID. -->
+                    <form
+                            class="delete-form"
+                            method="POST"
+                            action="index.php?page=reminder&action=delete"
 
-                    <form class="delete-form" method="POST" action="index.php?page=reminder&action=delete" >
+                    >
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
                         <input type="hidden" name="id" value="<?= $reminder['id'] ?>">
 
                         <button type="submit" class="link-button">
