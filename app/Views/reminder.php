@@ -1,14 +1,14 @@
 <form >
 
 
-    <section class="form-main">
+    <section >
 
         <div class="form-row">
 
             <div class="form-group">
                 <label>Datum (TT/MM)</label>
 
-                <div class="date-part">
+                <div >
                     <input
                         class="date-input"
                         type="number"
