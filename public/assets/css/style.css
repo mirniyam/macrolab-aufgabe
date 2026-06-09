@@ -1,0 +1,142 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#fff;
+    color:#666;
+}
+
+/* HEADER */
+
+.header{
+    height:260px;
+    position:relative;
+}
+
+.logo{
+    position:absolute;
+    right:250px;
+    bottom:25px;
+    font-size:72px;
+    letter-spacing:12px;
+    color:#777;
+}
+
+/* Horizontal line next to the logo */
+.header-line{
+    position:absolute;
+    left:0;
+    right:431px;
+    bottom:45px;
+    height:2px;
+    background:#bdbdbda3;
+}
+
+/* MAIN  AREA */
+
+.main-area{
+    width:100%;
+    height:300px;
+    background:#777;
+    position:relative;
+    margin-top:40px;
+}
+
+/* CONTENT part */
+
+.content-part{
+    width:635px;
+    background:#fff;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:-15px;
+    padding:30px;
+    min-height: 320px;
+}
+
+/* Bottom-left corner in white box */
+.content-part::before{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:20px;
+    height:20px;
+    border-left:2px solid #777;
+    border-bottom:2px solid #777;
+    border-radius:0 0 0 5px;
+}
+
+/* Bottom-right corner in white box */
+.content-part::after{
+    content:"";
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:20px;
+    height:20px;
+    border-right:2px solid #777;
+    border-bottom:2px solid #777;
+    border-radius:0 0 5px 0;
+}
+
+.content-part h1{
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.content-part p{
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:15px;
+    text-align:justify;
+}
+
+.image{
+    width:230px;
+    float:right;
+    margin-left:20px;
+    margin-bottom:15px;
+}
+
+/* MENU */
+
+.menu{
+    position:absolute;
+    top:50px;
+    right:50%;
+    margin-right:317px;
+}
+
+.menu a{
+    display:block;
+    width:180px;
+    padding:6px 10px;
+    margin-bottom:2px;
+    border:1px solid #ddd;
+    text-decoration:none;
+    color:#fff;
+    font-size:13px;
+}
+
+
+
+
+
+
+/* FOOTER */
+
+.footer{
+    height:80px;
+    margin-top:280px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    font-size:13px;
+}

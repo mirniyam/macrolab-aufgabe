@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 1379m
- * Date: 6/9/2026
- * Time: 3:50 PM
- */
+
+session_start();
+
+
+require_once __DIR__ . '/../app/views/layouts/header.php';
+require_once __DIR__ . '/../app/views/layouts/sidebar.php';
+
+
+require_once __DIR__ . '/../app/views/home.php';
+
+
+require_once __DIR__ . '/../app/views/layouts/footer.php';
