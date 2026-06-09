@@ -15,6 +15,10 @@ if ($page === 'reminder') {
 
     if ($action === 'store') {
         $controller->store();
+    } elseif ($action === 'delete') {
+        $controller->delete();
+    } elseif ($action === 'update') {
+        $controller->update();
     } else {
         $controller->index();
     }

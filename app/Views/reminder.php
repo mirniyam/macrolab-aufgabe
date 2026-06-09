@@ -1,5 +1,8 @@
-<form method="POST" action="index.php?page=reminder&action=store">
 
+<form method="POST" action="index.php?page=reminder&action=<?= $editReminder ? 'update' : 'store' ?>">
+<?php if ($editReminder): ?>
+    <input type="hidden" name="id" value="<?= $editReminder['id'] ?>">
+<?php endif; ?>
 
     <section >
 
@@ -17,6 +20,7 @@
                         max="31"
                         placeholder="TT"
                         required
+                        value="<?= $editReminder ? date('d', strtotime($editReminder['event_date'])) : '' ?>"
                     >
 
                     <input
@@ -27,6 +31,7 @@
                         max="12"
                         placeholder="MM"
                         required
+                        value="<?= $editReminder ? date('m', strtotime($editReminder['event_date'])) : '' ?>"
                     >
                 </div>
             </div>
@@ -40,6 +45,7 @@
                     name="title"
                     maxlength="255"
                     required
+                    value="<?= $editReminder ? htmlspecialchars($editReminder['title']) : '' ?>"
                 >
             </div>
 
@@ -52,6 +58,7 @@
                     name="email"
                     maxlength="255"
                     required
+                    value="<?= $editReminder ? htmlspecialchars($editReminder['email']) : '' ?>"
                 >
             </div>
 
@@ -60,31 +67,32 @@
 
 
                 <select
-                    class="select-input"
-                    name="reminder_days"
-                    required
+                        class="select-input"
+                        name="reminder_days"
+                        required
                 >
                     <option value="">--bitte auswählen--</option>
 
-                    <option value="1" >
+                    <option value="1" <?= $editReminder && $editReminder['reminder_days'] == 1 ? 'selected' : '' ?>>
                         1 Tag
                     </option>
 
-                    <option value="2">
+                    <option value="2" <?= $editReminder && $editReminder['reminder_days'] == 2 ? 'selected' : '' ?>>
                         2 Tage
                     </option>
 
-                    <option value="4" >
+                    <option value="4" <?= $editReminder && $editReminder['reminder_days'] == 4 ? 'selected' : '' ?>>
                         4 Tage
                     </option>
 
-                    <option value="7" >
+                    <option value="7" <?= $editReminder && $editReminder['reminder_days'] == 7 ? 'selected' : '' ?>>
                         1 Woche
                     </option>
 
-                    <option value="14" >
+                    <option value="14" <?= $editReminder && $editReminder['reminder_days'] == 14 ? 'selected' : '' ?>>
                         2 Wochen
                     </option>
+
                 </select>
             </div>
 
@@ -108,7 +116,6 @@
 
 
 
-<!-- Reminder overview table. -->
 <!-- Reminder overview table. -->
 <section class="table-box">
 
@@ -167,8 +174,9 @@
                 </td>
 
                 <td>
-                    <a
-                            class="edit-reminder"
+                    <a class="edit-reminder"
+                            href="index.php?page=reminder&edit=<?= $reminder['id'] ?>"
+
                     >
                         bearbeiten
                     </a>
@@ -176,9 +184,13 @@
                     |
 
 
+                    <form class="delete-form" method="POST" action="index.php?page=reminder&action=delete" >
+                        <input type="hidden" name="id" value="<?= $reminder['id'] ?>">
+
                         <button type="submit" class="link-button">
                             löschen
                         </button>
+                    </form>
                 </td>
 
             </tr>

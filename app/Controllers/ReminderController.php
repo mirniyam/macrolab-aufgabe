@@ -7,6 +7,13 @@ class ReminderController
     public function index()
     {
         $reminders = Reminder::all();
+
+        $editReminder = null;
+
+        if (isset($_GET['edit'])) {
+            $editReminder = Reminder::find((int) $_GET['edit']);
+        }
+
         require_once __DIR__ . '/../Views/reminder.php';
     }
 
@@ -27,6 +34,52 @@ class ReminderController
         );
 
         Reminder::create([
+            'event_date' => $eventDate,
+            'title' => trim($_POST['title']),
+            'email' => trim($_POST['email']),
+            'reminder_days' => $_POST['reminder_days']
+        ]);
+
+        header('Location: index.php?page=reminder');
+        exit;
+    }
+
+
+
+    public function delete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: index.php?page=reminder');
+            exit;
+        }
+
+        $id = (int) $_POST['id'];
+
+        Reminder::delete($id);
+
+        header('Location: index.php?page=reminder');
+        exit;
+    }
+
+
+
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: index.php?page=reminder');
+            exit;
+        }
+
+        $id = (int) $_POST['id'];
+
+        $eventDate = sprintf(
+            '%04d-%02d-%02d',
+            date('Y'),
+            $_POST['month'],
+            $_POST['day']
+        );
+
+        Reminder::update($id, [
             'event_date' => $eventDate,
             'title' => trim($_POST['title']),
             'email' => trim($_POST['email']),
