@@ -57,6 +57,7 @@ class Reminder
 
         return $stmt->execute([
             'id' => $id,
+            'event_date' => $data['event_date'],
             'title' => $data['title'],
             'email' => $data['email'],
             'reminder_days' => $data['reminder_days']

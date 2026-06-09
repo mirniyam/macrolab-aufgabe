@@ -1,4 +1,4 @@
-<form >
+<form method="POST" action="index.php?page=reminder&action=store">
 
 
     <section >
